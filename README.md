@@ -62,8 +62,8 @@ Another option is to deploy the container threw the [Docker Bosh Release](https:
 
 In the following example:
 
-  * We deploy 1 instance of the container
-  * Squid logs are collected by bosh agent
+  * Deploy 1 instance of the container
+  * Squid logs are collected with syslog
   * Volume `/var/spool/squid` is mounted in the container (cache directory)
 
 Example of bosh deployment manifest:
@@ -74,7 +74,7 @@ instance_groups:
   instances: 1
   vm_type: small
   stemcell: trusty
-	...
+...
 
 jobs:
   - {release: docker, name: docker}
@@ -89,6 +89,4 @@ jobs:
       - "3128:3128"
       bind_volumes:
       - "/var/spool/squid"
-      env_vars:
-      - SQUID_VERSION="3.5.23-r4"
 ```
