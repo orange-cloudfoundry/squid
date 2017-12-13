@@ -1,20 +1,22 @@
-FROM alpine:3.7
+FROM ubuntu:16.04
 
-ENV SQUID_VERSION="3.5.23-r4"
-ENV SQUID_USER="squid"
-ENV SQUID_CONF="/etc/squid/squid.conf"
-ENV SQUID_CACHE_DIR="/var/spool/squid"
-ENV SQUID_LOG_DIR="/var/log/squid"
+ENV SQUID_USER="proxy" \
+    SQUID_CONF="/etc/squid/squid.conf" \
+    SQUID_CACHE_DIR="/var/spool/squid" \
+    SQUID_LOG_DIR="/var/log/squid"
+ARG DEBIAN_FRONTEND=noninteractive
 
-COPY conf/entrypoint.sh /sbin/entrypoint.sh
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y squid && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY conf/entrypoint.sh /usr/local/bin
 COPY conf/squid.conf ${SQUID_CONF}
 
-RUN apk update && \
-    apk add --no-cache su-exec && \
-    apk add --no-cache squid=${SQUID_VERSION} && \
-    chmod 644 ${SQUID_CONF} && \
-    chmod 777 /sbin/entrypoint.sh
+RUN chmod 644 ${SQUID_CONF} && \
+    chmod 755 /usr/local/bin/entrypoint.sh
 
-EXPOSE 3128
-ENTRYPOINT ["/sbin/entrypoint.sh"]
+EXPOSE 3128/tcp
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["squid"]

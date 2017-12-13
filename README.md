@@ -6,7 +6,7 @@
 
 This docker image supports a container with following features:
 
-* Allow Internet access on port 80, 8080 and 443
+* Allow Internet access only on port 80, 8080 and 443
 * Reduces bandwidth and improves response times by caching and reusing frequently-requested web pages
 
 ## How to get it ?
@@ -62,9 +62,9 @@ Another option is to deploy the container threw the [Docker Bosh Release](https:
 
 In the following example:
 
-  * Deploy 1 instance of the container
-  * Squid logs are collected with syslog
-  * Volume `/var/spool/squid` is mounted in the container (cache directory)
+* Deploy 1 instance of the container
+* Squid logs are collected with syslog
+* Volume `/var/spool/squid` is mounted in the container (cache directory)
 
 Example of bosh deployment manifest:
 

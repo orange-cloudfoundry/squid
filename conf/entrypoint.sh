@@ -9,7 +9,7 @@ create_dir() {
   chown -R ${SQUID_USER}:${SQUID_USER} $1
 }
 
-if [ "$1" == "squid" ] ; then
+if [ "$1" = "squid" ] ; then
   echo "Create log and cache directories..."
   create_dir "${SQUID_LOG_DIR}"
   create_dir "${SQUID_CACHE_DIR}"
@@ -20,7 +20,7 @@ if [ "$1" == "squid" ] ; then
     ${SQUID} -f ${SQUID_CONF} -N -z
   fi
 
-  echo "Start squid \"${SQUID_VERSION}\"..."
+  echo "Start squid..."
   exec ${SQUID} -f ${SQUID_CONF} -NYCd 1
 else
   exec "$@"
