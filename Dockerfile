@@ -4,6 +4,7 @@ ENV SQUID_USER="proxy" \
     SQUID_CONF="/etc/squid/squid.conf" \
     SQUID_CACHE_DIR="/var/spool/squid" \
     SQUID_LOG_DIR="/var/log/squid"
+
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && \
