@@ -6,8 +6,9 @@
 
 This docker image supports a container with following features:
 
-* Allow Internet access only on port 80, 8080 and 443
 * Reduces bandwidth and improves response times by caching and reusing frequently-requested web pages
+* Allow Internet access only for internal networks on port 80 and 443
+* Squid transactions and cache logs are redirected to stdout
 
 ## How to get it ?
 
@@ -50,7 +51,7 @@ Launch the image:
 docker run -p 3128:3128 -d --name squid -d orangecloudfoundry/squid
 ```
 
-Acces to the container to see logs transactions:
+Acces to the container:
 
 ``` bash
 docker exec -it squid sh
@@ -62,9 +63,9 @@ Another option is to deploy the container threw the [Docker Bosh Release](https:
 
 In the following example:
 
-* Deploy 1 instance of the container
-* Squid logs are collected with syslog
-* Volume `/var/spool/squid` is mounted in the container (cache directory)
+* 1 instance of the container is deployed
+* syslog driver catch squid logs from stdout
+* Volume `/var/spool/squid` is mounted in the container (for cache directory)
 
 Example of bosh deployment manifest:
 
