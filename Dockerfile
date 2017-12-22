@@ -15,9 +15,7 @@ COPY conf/entrypoint.sh /usr/local/bin
 COPY conf/squid.conf ${SQUID_CONF}
 
 RUN chmod 644 ${SQUID_CONF} && \
-    chmod 755 /usr/local/bin/entrypoint.sh && \
-    ln -sf /dev/stdout /var/log/squid/access.log && \
-    ln -sf /dev/stdout /var/log/squid/cache.log
+    chmod 755 /usr/local/bin/entrypoint.sh
 
 EXPOSE 3128/tcp
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -22,7 +22,7 @@ if [ "$1" = "squid" ] ; then
   fi
 
   echo "Start squid..."
-  exec ${SQUID} -f ${SQUID_CONF} -NYCd 1
+  exec ${SQUID} -f ${SQUID_CONF} -NYC
 else
   exec "$@"
 fi
